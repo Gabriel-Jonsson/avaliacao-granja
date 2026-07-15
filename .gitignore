@@ -1,0 +1,19 @@
+# Delphi
+__history/
+__recovery/
+*.dcu
+*.local
+*.identcache
+*.projdata
+*.tvsconfig
+*.dsk
+*.stat
+Win32/
+Win64/
+
+# banco local de testes
+*.fdb
+*.fbk
+
+# anotacoes pessoais
+_notas/
