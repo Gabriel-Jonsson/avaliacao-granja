@@ -1,0 +1,4 @@
+* text=auto
+*.pas text
+*.dfm text eol=crlf
+*.sql text
