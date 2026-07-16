@@ -8,12 +8,16 @@ __recovery/
 *.tvsconfig
 *.dsk
 *.stat
+*.skincfg
 Win32/
 Win64/
 
 # banco local de testes
 *.fdb
 *.fbk
+
+# configuracao local (versionado apenas o config.exemplo.ini)
+config.ini
 
 # anotacoes pessoais
 _notas/
