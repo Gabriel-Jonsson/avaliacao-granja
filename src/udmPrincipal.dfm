@@ -5,7 +5,9 @@ object dmPrincipal: TdmPrincipal
   Width = 320
   object FDConnection: TFDConnection
     Params.Strings = (
-      'DriverID=FB')
+      'DriverID=FB'
+      'User_Name=sysdba'
+      'Password=masterkey')
     LoginPrompt = False
     Left = 48
     Top = 32

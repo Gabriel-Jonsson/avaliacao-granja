@@ -49,6 +49,7 @@ object frmPrincipal: TfrmPrincipal
     TitleFont.Name = 'Tahoma'
     TitleFont.Style = []
     OnDrawColumnCell = grdLotesDrawColumnCell
+    OnDblClick = grdLotesDblClick
     Columns = <
       item
         Expanded = False
@@ -116,6 +117,15 @@ object frmPrincipal: TfrmPrincipal
       Caption = 'Atualizar'
       TabOrder = 0
       OnClick = btnAtualizarClick
+    end
+    object btnLancamentos: TButton
+      Left = 104
+      Top = 8
+      Width = 120
+      Height = 25
+      Caption = 'Lan'#231'amentos...'
+      TabOrder = 1
+      OnClick = btnLancamentosClick
     end
   end
   object dsLotes: TDataSource
