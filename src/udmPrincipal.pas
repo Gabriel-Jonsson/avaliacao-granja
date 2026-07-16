@@ -23,6 +23,7 @@ type
     procedure DataModuleCreate(Sender: TObject);
   private
     procedure CarregaConfiguracao;
+    procedure FormataCampo(AField: TField; const AFormato: string);
   public
     procedure AbreLotes;
     procedure AbrePesagens(AIdLote: Integer);
@@ -72,10 +73,30 @@ begin
   end;
 end;
 
+{ campos NUMERIC(x,2) do Firebird chegam como BCD e o VCL assume
+  Currency=True (heranca do BDE) - percentual aparecia como R$ }
+procedure TdmPrincipal.FormataCampo(AField: TField; const AFormato: string);
+begin
+  if AField is TBCDField then
+  begin
+    TBCDField(AField).Currency := False;
+    TBCDField(AField).DisplayFormat := AFormato;
+  end
+  else if AField is TFMTBCDField then
+  begin
+    TFMTBCDField(AField).Currency := False;
+    TFMTBCDField(AField).DisplayFormat := AFormato;
+  end
+  else if AField is TFloatField then
+    TFloatField(AField).DisplayFormat := AFormato;
+end;
+
 procedure TdmPrincipal.AbreLotes;
 begin
   qryLotes.Close;
   qryLotes.Open;
+  FormataCampo(qryLotes.FieldByName('O_PESO_MEDIO_GERAL'), '0.00');
+  FormataCampo(qryLotes.FieldByName('O_PERCENTUAL_MORTALIDADE'), '0.00');
 end;
 
 procedure TdmPrincipal.AbrePesagens(AIdLote: Integer);
@@ -83,6 +104,7 @@ begin
   qryPesagens.Close;
   qryPesagens.ParamByName('ID_LOTE').AsInteger := AIdLote;
   qryPesagens.Open;
+  FormataCampo(qryPesagens.FieldByName('O_PESO_MEDIO'), '0.00');
 end;
 
 procedure TdmPrincipal.AbreMortalidades(AIdLote: Integer);
