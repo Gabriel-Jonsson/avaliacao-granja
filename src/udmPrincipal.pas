@@ -56,9 +56,6 @@ begin
    Ini := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'config.ini');
    try
       FDConnection.Params.DriverID := 'FB';
-      { o default do FireDAC e Protocol=Local (XNET) - com mais de um Firebird
-        na maquina o attach local pode cair no servidor errado. TCP explicito,
-        com host e arquivo em parametros separados. }
       FDConnection.Params.Add('Protocol=TCPIP');
       FDConnection.Params.Add('Server=' +
          Ini.ReadString('banco', 'servidor', 'localhost'));
