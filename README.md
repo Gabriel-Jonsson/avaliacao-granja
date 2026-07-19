@@ -28,6 +28,7 @@ Primeiro o banco - rodar os scripts nessa ordem:
 cd /d <pasta onde o repositorio foi clonado>
 set ISQL="C:\Program Files\Firebird\Firebird_4_0\isql.exe"
 
+mkdir C:\dados
 %ISQL% -i sql\00_cria_banco.sql
 %ISQL% -u SYSDBA -p masterkey localhost:C:\dados\granja.fdb -i sql\01_ddl.sql
 %ISQL% -u SYSDBA -p masterkey localhost:C:\dados\granja.fdb -i sql\02_procedures.sql
@@ -46,11 +47,14 @@ Depois é abrir src\AvaliacaoGranja.dproj no Delphi e compilar (Win32). A conex�
 um config.ini na pasta do executável (copie o config.exemplo.ini e ajuste). Sem o
 arquivo, valem os padrões: localhost, porta 3050, C:\dados\granja.fdb, SYSDBA/masterkey.
 
-Uma observação se a máquina tiver mais de um Firebird instalado (comum onde roda
-ERP legado): copie o fbclient.dll 32-bit do Firebird 4 para a pasta do executável,
-senão o FireDAC pode carregar um client antigo do PATH. A conexão já força
-Protocol=TCPIP pelo mesmo motivo - o attach local do FireDAC pode cair no servidor
-errado quando existem dois.
+Se o app não conectar reclamando de fbclient.dll, copie o fbclient.dll 32-bit do
+Firebird para a pasta do executável. O exe é 32-bit, então precisa do client
+32-bit - em instalação 64-bit ele só existe se a opção foi marcada no instalador
+(fica na subpasta WOW64). O mesmo vale para máquina com mais de um Firebird
+instalado (comum onde roda ERP legado): com a DLL na pasta do exe, o FireDAC não
+arrisca carregar um client antigo do PATH. A conexão já força Protocol=TCPIP pelo
+mesmo motivo - o attach local do FireDAC pode cair no servidor errado quando
+existem dois.
 
 ## Estrutura
 
