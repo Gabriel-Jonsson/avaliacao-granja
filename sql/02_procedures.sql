@@ -29,7 +29,6 @@ RETURNS (
 AS
 DECLARE VARIABLE V_QTD_INICIAL INTEGER;
 BEGIN
-    /* trava a linha do lote antes de validar */
     SELECT QUANTIDADE_INICIAL
       FROM TAB_LOTE_AVES
      WHERE ID_LOTE = :I_ID_LOTE
@@ -54,7 +53,6 @@ BEGIN
         (:I_ID_LOTE, :I_DATA_PESAGEM, :I_PESO_MEDIO, :I_QUANTIDADE_PESADA)
     RETURNING ID_PESAGEM INTO :O_ID_PESAGEM;
 
-    /* calculo em double para nao depender da regra de escala do dialeto 3 */
     SELECT CAST(SUM(CAST(PESO_MEDIO AS DOUBLE PRECISION) * QUANTIDADE_PESADA)
                 / SUM(QUANTIDADE_PESADA) AS NUMERIC(10,2))
       FROM TAB_PESAGEM
